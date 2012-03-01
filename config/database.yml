@@ -1,0 +1,20 @@
+mysql: &mysql
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  pool: 5
+  username: root
+  password: '123'
+  socket: /tmp/mysql.sock
+
+development:
+  <<: *mysql
+  database: physic_dev
+
+test:
+  <<: *mysql
+  database: physic_test
+
+production:
+  <<: *mysql
+  database: physic_dev
