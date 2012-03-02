@@ -1,27 +1,50 @@
-<h1>Listing articles</h1>
+<div>
+  <span class='ganzhi'></span>
+  <input type='text' class='year'></input>
+  <button>Query</button>
+</div>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Content</th>
-    <th>Author</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 
-<% @articles.each do |article| %>
-  <tr>
-    <td><%= article.title %></td>
-    <td><%= article.content %></td>
-    <td><%= article.author_id %></td>
-    <td><%= link_to 'Show', article %></td>
-    <td><%= link_to 'Edit', edit_article_path(article) %></td>
-    <td><%= link_to 'Destroy', article, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+<script type="text/javascript">
+  var today = new Date();
+  tian_gan_mapping = {
+    1 : "辛",
+    2 : "壬",
+    3 : "癸",
+    4 : "甲",
+    5 : "乙",
+    6 : "丙",
+    7 : "丁",
+    8 : "戊",
+    9 : "己",
+    0 : "庚",
+  };
 
-<br />
+  di_zhi_mapping = {
+    1 : "酉",
+    2 : "戌",
+    3 : "亥",
+    4 : "子",
+    5 : "丑",
+    6 : "寅",
+    7 : "卯",
+    8 : "辰",
+    9 : "巳",
+    10: "午",
+    11: "未",
+    0 : "申",
+  };
+  
+  var ganZhi = function gz_ad_convert(year) {
+    tian_gan_key = year%10
+    di_zhi_key = year%12
 
-<%= link_to 'New Article', new_article_path %>
+    return tian_gan_mapping[tian_gan_key] + di_zhi_mapping[di_zhi_key]
+  }
+
+  $(function(){
+    $("button").click(function(){
+      $(".ganzhi").text(ganZhi($(".year").val()));
+    });
+  });
+</script>
