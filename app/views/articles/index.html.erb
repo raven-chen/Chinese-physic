@@ -1,12 +1,41 @@
 <div>
   <span class='ganzhi'></span>
-  <input type='text' class='year'></input>
+  <input type='text' class='year date_field'></input>
   <button>Query</button>
 </div>
 
 
 <script type="text/javascript">
   var today = new Date();
+  tian_gan = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+  tian_gan_wu_yun = {
+    "甲" : "土+", 
+    "乙" : "金-", 
+    "丙" : "水+", 
+    "丁" : "木-", 
+    "戊" : "火+", 
+    "己" : "土-", 
+    "庚" : "金+", 
+    "辛" : "水-", 
+    "壬" : "木+", 
+    "癸" : "火-"
+  };
+
+  di_zhi = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+  di_zhi_liu_qi = {
+    "子" : "少阴君火", 
+    "丑" : "太阴湿土", 
+    "寅" : "少阳相火", 
+    "卯" : "阳明燥金", 
+    "辰" : "太阳寒水", 
+    "巳" : "厥阴风木", 
+    "午" : "少阴君火", 
+    "未" : "太阴湿土", 
+    "申" : "少阳相火", 
+    "酉" : "阳明燥金", 
+    "戌" : "太阳寒水", 
+    "亥" : "厥阴风木"
+  }
   tian_gan_mapping = {
     1 : "辛",
     2 : "壬",
@@ -35,16 +64,43 @@
     0 : "申",
   };
   
-  var ganZhi = function gz_ad_convert(year) {
-    tian_gan_key = year%10
-    di_zhi_key = year%12
+  var ganZhi = function gz_ad_convert(year){
+    var tian_gan_key = year%10
+    var di_zhi_key = year%12
 
-    return tian_gan_mapping[tian_gan_key] + di_zhi_mapping[di_zhi_key]
+    return { "天干" : tian_gan_mapping[tian_gan_key], "地支" : di_zhi_mapping[di_zhi_key] } 
+  }
+
+  var wuYun = function wuyun_calculation(year){
+    var tg = ganZhi(year)["天干"];
+    return tian_gan_wu_yun[tg];
+  }
+
+  var liuQi = function liuQi_calculation(year){
+    var dz = ganZhi(year)["地支"];
+    var siTian = di_zhi_liu_qi[dz];
+    var zaiQuan = di_zhi_liu_qi[di_zhi[$.inArray(dz) + 2]];
+
+    return { "司天" : siTian,　"在泉" : zaiQuan };
   }
 
   $(function(){
+    $(".date_field").datepicker({
+      dateFormat: 'yy-mm-dd',
+      defaultDate: new Date(),
+    });
+
     $("button").click(function(){
-      $(".ganzhi").text(ganZhi($(".year").val()));
+      var year = get_number_from_datepicker($(".year"))["year"];
+      var wuyun_text = wuYun(year).replace(/\+/, "运太过").replace(/\-/, "运不及");
+      var yunqi = wuyun_text + ", " + liuQi(year)["司天"] + "司天, " + liuQi(year)["在泉"] + "在泉";
+      $(".ganzhi").text(yunqi);
     });
   });
+
+  function get_number_from_datepicker(datepicker){
+    var date_arr = datepicker.val().split("-");
+    
+    return { "year" : date_arr[0], "month" : date_arr[0], "day" : date_arr[0] };
+  }
 </script>
