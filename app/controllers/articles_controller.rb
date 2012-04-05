@@ -3,6 +3,8 @@ class ArticlesController < ApplicationController
     p "--"*30
       p "parameter is #{params}"
     p "--"*30
+
+    render :index
   end
 
   def index
