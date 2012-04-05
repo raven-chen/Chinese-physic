@@ -8,6 +8,7 @@ gem 'rack'
 
 group :development, :test do
   gem 'mysql2'
+  gem "pry"
 end
 
 group :production do

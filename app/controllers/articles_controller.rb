@@ -1,6 +1,10 @@
 class ArticlesController < ApplicationController
-  # GET /articles
-  # GET /articles.json
+  def deauth_test
+    p "--"*30
+      p "parameter is #{params}"
+    p "--"*30
+  end
+
   def index
     @articles = Article.all
 
