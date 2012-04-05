@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   def deauth_test
     p "--"*30
-      p request.inspect
+      p params[:signed_request]
       p "parameter is #{params}"
     p "--"*30
 
