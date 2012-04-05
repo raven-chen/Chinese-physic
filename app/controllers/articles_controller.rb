@@ -2,6 +2,9 @@ class ArticlesController < ApplicationController
   def deauth_test
     p "--"*30
       p params[:signed_request]
+      a, b = params[:signed_request].split(".")
+
+      p Base64.decode64(b.tr('-_','+/'))
       p "parameter is #{params}"
     p "--"*30
 
