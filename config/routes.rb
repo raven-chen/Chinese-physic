@@ -1,4 +1,6 @@
 ChinesePhysic::Application.routes.draw do
+  resources :posts
+
   resources :articles
 
   # The priority is based upon order of creation:
@@ -50,8 +52,9 @@ ChinesePhysic::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'articles#index'
+  root :to => 'posts#index'
   match "/deauth_callback", :to => "articles#deauth_test"
+  match "/backbone_help", :to => "posts#backbone_help"
 
   # See how all your routes lay out with "rake routes"
 

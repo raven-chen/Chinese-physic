@@ -1,0 +1,108 @@
+<div>
+  <ul class="list">
+    <li><a id="anchor" href="#help">Another Page</a></li>
+    <li><a href="#model/inheritable">Model Inheritable</a></li>
+  </ul>
+  <div class="clear"></div>
+</div>
+<article id="demoApp">
+  <h1>Backbone.js</h1>
+  <div id="garden" class='center'>
+    <div>
+      <a id='add-flower' href="javascript: ;">Add a flower</a>
+    </div>
+    <ul class="flowers" id="flower">
+    </ul>
+    <div class="clear"></div>
+  </div>
+
+  <div id="console"></div>
+  <div id="gardenDB"></div>
+</article>
+<article id="demoAppPage2" class='hidden'>
+  <div class='center'></div>
+</article>
+<article id="model-inheritable" class='hidden'>
+  <div class='center'>
+    <pre>
+      var Plant = Backbone.Model.extend({
+        defaults: {
+          name: "rose",
+          intro: "I can't walk"
+        },
+
+        selfIntroduction: function(){
+          console.log("Kind Of Plant");
+        }
+      });
+
+      var Tree = Plant.extend({
+        defaults: {
+          extra: "No name and intro inherited"
+        },
+
+        selfIntroduction: function(){
+          console.log("Kind Of Tree");
+        }
+      });
+    </pre>
+  </div>
+</article>
+
+<script type="text/javascript">
+$(function(){
+  var garden = new Garden({el: $("#garden")});
+
+  garden.addFlowersFromDb(<%= @posts.to_json.html_safe %>);
+
+  garden.render();
+
+  var route = new Router();
+  Backbone.history.start();
+});
+</script>
+
+<script type="text/template" id="flower-template">
+  <h2>{{name}}</h2>
+  <input type="text" class="hidden"></input>
+  <span>"{{intro}}"</span>
+  <a class='cut-flower' href="javascript: ;">Cut it</a>
+  <a class='save-flower' href="javascript: ;">Save it</a>
+</script>
+
+<style type="text/css">
+  .center {
+    border: 1px solid #CCC;
+    width: 800px;
+    min-height: 200px;
+    margin: 0 auto;
+  }
+  .flowers, .trees {
+    float: left;
+    margin-left: 10px;
+    width: 300px;
+    display: block;
+  }
+  .clear {
+    clear: both;
+  }
+  .a-flower {
+    padding: 5px;
+    border: 1px solid HotPink;
+    margin-top: 5px;
+  }
+  .a-flower span {
+    display: block;
+  }
+  .a-tree {
+    border: 1px solid LawnGreen;
+  }
+  .hidden {
+    display: none;
+  }
+  .list li{
+    float: left;
+    margin: 10px;
+    list-style: none;
+  }
+</style>
