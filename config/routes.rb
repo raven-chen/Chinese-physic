@@ -52,9 +52,9 @@ ChinesePhysic::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'posts#index'
-  match "/deauth_callback", :to => "articles#deauth_test"
-  match "/backbone_help", :to => "posts#backbone_help"
+  root :to => 'articles#template_in_design'
+  # match "/deauth_callback", :to => "articles#deauth_test"
+  # match "/backbone_help", :to => "posts#backbone_help"
 
   # See how all your routes lay out with "rake routes"
 

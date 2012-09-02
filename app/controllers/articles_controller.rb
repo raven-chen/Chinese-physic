@@ -90,4 +90,7 @@ class ArticlesController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  def template_in_design
+  end
 end
